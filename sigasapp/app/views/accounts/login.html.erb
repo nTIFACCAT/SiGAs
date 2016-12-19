@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="body-full-height">
+    <head>        
+        <!-- META SECTION -->
+        <title>SiGAs FACCAT - Sistema de Gestão para Associações</title>           
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="icon" href="<%= image_path("favicon.ico")%>" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <%= csrf_meta_tags %>
+        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>                     
+    </head>
+    <body>
+        
+        <div class="login-container lightmode" style="background: url(<%= image_path("wall_1.jpg")%>) left top no-repeat;">
+        
+            <div class="login-box animated fadeInDown">
+                <div class="login-logo" style="background: url(<%= image_path("logo_sigas.png")%>) top center no-repeat;"></div>
+                <div class="login-body">
+                    <div class="login-title"><strong>Autenticação</strong></div>
+                    <% if @login_error_flag %>
+                      <div class="alert alert-danger">
+                        <b>Não foi possível fazer login!</b><br /> 
+                        Os dados não conferem.
+                      </div>
+                    <% end %>
+                   <form class="form-horizontal form-ajax" name="form_login" method="post" action="<%= login_path %>">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" id="email" name="email" class="form-control" placeholder="E-mail"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input tid="password" name="password" type="password" class="form-control" placeholder="Senha"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-link btn-block">Esqueceu sua senha?</a>
+                        </div>
+                        <div class="col-md-6">
+                            <input name="commit" value="Acessar" type="submit" class="btn btn-info btn-block" state="logging">
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+        
+    </body>
+</html>

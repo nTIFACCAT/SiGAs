@@ -1,0 +1,98 @@
+<div class="page-content-wrap">
+    <div class="col-md-12">
+        <%= form_for @user, html: {class: "form-horizontal"} do |f| %>
+        
+        <div class="col-md-12">
+
+           <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Dados Pessoais</h3>
+                    </div>
+                    <div class="panel-body">
+                        <% if @user.errors.any? %>
+                          <div class="alert alert-danger col-md-9">
+                            <b>Foram encontrados alguns erros:</b><br /> 
+                            <ul>
+                                <% @user.errors.full_messages.each do |msg| %>
+                                  <li><%= msg %></li>
+                                <% end %>
+                              </ul>
+                          </div>
+                        <% end %>
+                        
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <label class="col-md-1 control-label">Nome: </label>
+                            <div class="col-md-5">                                            
+                                <input name="name" type="text" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <label class="col-md-1 control-label">Cargo: </label>
+                            <div class="col-md-5">                                            
+                                <input name="role" type="text" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <label class="col-md-1 control-label">Telefone: </label>
+                            <div class="col-md-5">                                            
+                                <input name="phone" type="text" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <label class="col-md-1 control-label">E-mail: </label>
+                            <div class="col-md-5">                                            
+                                <div class="input-group">
+                                    <span class="input-group-addon"> @ </span>
+                                    <input name="email" type="text" class="form-control"/>
+                                </div>                                            
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <label class="col-md-1 control-label">Foto perfil: </label>
+                            <div class="col-md-5">                                            
+                                <input type="file" class="form-control" name="photo" id="filename" title="Browse file"/>     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TODO Permissões de Usuários -->
+            <div class="row hide">         
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Permissões</h3>
+                    </div>
+                    <div class="panel-body">
+                        <label class="check"><input type="checkbox" checked="checked"/> Checkbox title</label>
+                    </div> 
+                </div> 
+            </div> 
+
+            <div class="row">         
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Controle</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-lg btn-info"> Salvar </button>
+                        </div>
+                    </div> 
+                </div> 
+            </div> 
+        </div>    
+        <% end %>
+    </div>
+</div>

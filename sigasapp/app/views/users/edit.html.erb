@@ -1,0 +1,25 @@
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li>
+      <%= link_to dashboards_path do %>
+        Início
+      <% end %>  
+    </li>  
+    <li>Configurações</li>                  
+    <li>
+      <%= link_to users_path do %>
+        Usuários
+      <% end %>
+    </li>
+    <li class="active">Editar Usuário</li>
+</ul>
+<!-- END BREADCRUMB -->   
+
+<!-- PAGE TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-users"></span> Editar Usuário </h2>
+</div>
+<!-- END PAGE TITLE -->   
+
+<%= render 'form', user: @user %>
+

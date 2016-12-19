@@ -1,0 +1,78 @@
+  <!-- START BREADCRUMB -->
+  <ul class="breadcrumb">
+      <li>
+        <%= link_to dashboards_path do %>
+          Início
+        <% end %>  
+      </li>  
+      <li>Configurações</li>                  
+      <li class="active">Usuários</li>
+  </ul>
+  <!-- END BREADCRUMB -->   
+
+  <!-- PAGE TITLE -->
+  <div class="page-title">                    
+      <h2><span class="fa fa-users"></span> Usuários </h2>
+  </div>
+  <!-- END PAGE TITLE -->                            
+  
+  <!-- PAGE CONTENT WRAPPER -->
+  <div class="page-content-wrap">
+      <div class="row">
+          
+          <!-- CONTACT ITEM -->
+          <div class="col-md-3">
+              <div class="panel panel-default">
+                  <div class="panel-body profile profile-black">
+                      <div class="profile-image">
+                          <img src="assets/images/users/user3.jpg" alt="Nadia Ali"/>
+                      </div>
+                      <div class="profile-data">
+                          <div class="profile-data-name">Flávia Lemes</div>
+                          <div class="profile-data-title">Secretaria</div>
+                      </div>
+                  </div>                                
+                  <div class="panel-body">                                    
+                      <div class="contact-info">
+                          <p><small>Telefone</small><br/>(555) 555-55-55</p>
+                          <p><small>Email</small><br/>nadiaali@domain.com</p>
+                      </div>
+                      <div class="col-md-6">
+                          <button class="btn btn-default btn-block"><span class="fa fa-pencil"></span> Editar Usuário </button>
+                      </div>
+                      <div class="col-md-6">
+                          <button class="btn btn-info btn-block"><span class="fa fa-refresh"></span> Resetar Senha </button>
+                      </div>
+                  </div>                                
+              </div>
+          </div>
+          <!-- END CONTACT ITEM -->
+
+      </div>
+ 
+
+      
+      
+      
+      <div class="row">
+          <div class="col-md-12">
+              <div class="panel panel-default">
+                  <div class="panel-body">
+                      <div class="col-md-12">
+                        <%= link_to new_user_path, :class => "btn btn-success btn-block" do %>
+                          <span class="fa fa-plus"></span> Adicionar Usuário
+                        <% end %>
+                      </div>
+                  </div>
+              </div>
+              
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+
+<p id="notice"><%= notice %></p>

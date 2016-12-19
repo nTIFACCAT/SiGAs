@@ -1,0 +1,56 @@
+<br />
+<div class="col-lg-9">
+	<h1>Preferências</h1>  
+</div>
+
+<div class="content-panel">
+	<div class="row mt">
+		<div class="col-lg-12">
+			<div class="col-lg-1"></div>
+			<div class="col-lg-11">
+			  <%= form_for(@user) do |f| %>
+			    <% if @user.errors.any? %>
+				  <div class="alert alert-danger col-md-9">
+				    <b>Foram encontrados alguns erros:</b><br /> 
+				  	<ul>
+					  <% @user.errors.full_messages.each do |msg| %>
+					    <li><%= msg %></li>
+					  <% end %>
+				    </ul>
+				  </div>
+				<% end %>
+				  
+			  	<div class="form-group">
+			  	  <label for="name" class="col-sm-9 control-label">Nome</label>
+				  <div class="col-sm-9">
+				    <%= f.text_field :name, id: :name, class: 'form-control'%>
+				  </div>
+				</div>
+				
+				<div class="row mt">
+				  <div class="form-group col-sm-5">
+				    <label for="password" class="col-sm-9 control-label">Nova senha</label>
+					<div class="col-sm-9">
+					  <%= f.password_field :password, id: :password, class: 'form-control'%>
+				    </div>
+			      </div>
+					  
+				  <div class="form-group col-sm-5">
+				    <label for="password_conf" class="col-sm-9 control-label">Repetir senha</label>
+					<div class="col-sm-9">
+					  <%= f.password_field :password_conf, id: :password_conf, class: 'form-control'%>
+					</div>
+				  </div>
+				</div>
+			  
+				<div class="form-group">
+				  <div class="col-sm-9">
+				    <br />
+				    <%= f.submit 'Salvar', :class => 'btn btn-block btn-primary'%>  
+				  </div>
+				</div>
+			  <% end %>
+		  </div>
+		</div>
+	</div>
+</div>

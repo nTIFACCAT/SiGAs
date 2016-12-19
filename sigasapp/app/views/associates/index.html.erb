@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Associates</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @associates.each do |associate| %>
+      <tr>
+        <td><%= link_to 'Show', associate %></td>
+        <td><%= link_to 'Edit', edit_associate_path(associate) %></td>
+        <td><%= link_to 'Destroy', associate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Associate', new_associate_path %>
