@@ -24,9 +24,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         # Tell the UserMailer to send a welcome email after save
-        UserMailer.welcome_email(@user,pwd).deliver
+        # UserMailer.welcome_email(@user,pwd).deliver
         
-        format.html { redirect_to users_path, notice: 'User was successfully created.' }
+        format.html { redirect_to users_path, notice: 'Usuário cadastrado com sucesso.' }
         format.json { render action: 'show', status: :created, location: users_path }
       else
         format.html { render action: 'new' }
@@ -86,7 +86,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.fetch(:user, {}).permit(:name, :email, :permission, :password)
+      params.fetch(:user, {}).permit(:name, :email, :phone, :role, :photo)
     end
   
   protected

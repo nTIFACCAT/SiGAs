@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.boolean :active, null: false, default: true
       t.string :phone
       t.string :role
-      t.binary :photo
+      t.attachment :photo
       t.datetime :last_sign_in_at
       t.string :last_sign_in_ip
       t.timestamps

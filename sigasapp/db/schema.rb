@@ -37,7 +37,10 @@ ActiveRecord::Schema.define(version: 20161216140805) do
     t.boolean  "active",             default: true, null: false
     t.string   "phone"
     t.string   "role"
-    t.binary   "photo"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
     t.datetime "last_sign_in_at"
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                        null: false

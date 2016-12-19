@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_attached_file :photo
   attr_accessor :current_password, :password, :password_confirmation
   
   before_validation :check_password_for_new_record
@@ -12,6 +13,7 @@ class User < ApplicationRecord
   validates_format_of :email, with: EMAIL_REGEX
   validates_length_of :name, minimum: NAME_MIN_LENGTH
   validates_uniqueness_of :email, case_sensitive: false
+  validates_attachment :photo, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
   
   def self.authenticate(email, password)
     return false if email.blank? || password.blank?
