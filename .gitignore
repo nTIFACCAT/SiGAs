@@ -2,3 +2,4 @@
 *.sqlite3
 *.pyc
 sigasapp/config/secrets.yml
+sigasapp/config/initializers/app_env_vars.rb
