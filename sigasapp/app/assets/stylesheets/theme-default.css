@@ -1069,6 +1069,7 @@ body.page-container-boxed .page-container {
 }
 .profile .profile-image img {
   width: 120px;
+  height: 120px;
   border: 0px solid #FFF;
   -moz-border-radius: 20%;
   -webkit-border-radius: 20%;
@@ -3857,7 +3858,7 @@ background: #1caf9a !important;
   width: 100%;
 }
 .contact-info p {
-  margin-bottom: 5px;
+  margin: 5px;
 }
 .contact-info strong {
   font-size: 13px;

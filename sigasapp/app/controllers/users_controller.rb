@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:id])
     redirect_to users_path if @user == session[:current_user]
     @user.destroy
     respond_to do |format|
@@ -69,16 +69,16 @@ class UsersController < ApplicationController
     end
   end
   
-  #def status_change
-  #  @user = User.find(params[:user_id])
-  #  @user.active = @user.id == 1 ? true : !@user.active
-  #  respond_to do |format|
-  #    if @user.save!
-  #      format.html { redirect_to users_path}
-  #      format.json { head :no_content }
-  #    end
-  #  end
-  #end
+  def status_change
+    @user = User.find(params[:user_id])
+    @user.active = @user.id == 1 ? true : !@user.active
+    respond_to do |format|
+      if @user.save!
+        format.html { redirect_to users_path}
+        format.json { head :no_content }
+      end
+    end
+  end
 
   private
     def set_user

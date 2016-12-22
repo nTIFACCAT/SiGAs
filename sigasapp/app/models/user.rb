@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_attached_file :photo
+  has_attached_file :photo, :default_url => '/assets/default-user-avatar.png'
   attr_accessor :current_password, :password, :password_confirmation
   
   before_validation :check_password_for_new_record

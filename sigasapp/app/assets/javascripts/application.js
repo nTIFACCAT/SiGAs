@@ -21,6 +21,9 @@
 //= require morris.min.js
 //= require owl.carousel.min.js
 //= require raphael-min.js
+//= require jquery.noty.js
+//= require noty-topCenter.js
+//= require noty-theme-default.js
 //= require plugins.js
 //= require actions.js
 //= require demo_dashboard.js

@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <!-- END META SECTION -->
         <%= csrf_meta_tags %>
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= stylesheet_link_tag    'application', media: 'all'%>
         
         <link rel="icon" href="<%= image_path("favicon.ico")%>" type="image/x-icon" />
                                           
@@ -146,15 +146,17 @@
                 
                 
                 
-        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %> 
+        <%= javascript_include_tag 'application'%> 
 
-                
-
+        
         <!-- START PRELOADS -->
         <!--audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>
         <audio id="audio-fail" src="audio/fail.mp3" preload="auto"></audio>
-        <!-- END PRELOADS -->                  
-        
-           
+        <!-- END PRELOADS -->
     </body>
+      <% if notice %>
+        <script type="text/javascript">
+          noty({text: '<%= notice %>', layout: 'topCenter', type: 'information', timeout: 4000});
+      </script>
+      <% end %>
 </html>

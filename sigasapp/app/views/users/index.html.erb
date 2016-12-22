@@ -16,45 +16,42 @@
   </div>
   <!-- END PAGE TITLE -->                            
   
-  <p id="notice"><%= notice %></p>
-  
   <!-- PAGE CONTENT WRAPPER -->
   <div class="page-content-wrap">
       <div class="row">
           
+          <% @users.each do |user| %>
           <!-- CONTACT ITEM -->
           <div class="col-md-3">
               <div class="panel panel-default">
                   <div class="panel-body profile profile-black">
                       <div class="profile-image">
-                          <img src="assets/images/users/user3.jpg" alt="Nadia Ali"/>
+                          <%= image_tag user.photo.url %>
                       </div>
                       <div class="profile-data">
-                          <div class="profile-data-name">Flávia Lemes</div>
-                          <div class="profile-data-title">Secretaria</div>
+                          <div class="profile-data-name"><%= user.name %></div>
+                          <div class="profile-data-title"><%= user.role %></div>
                       </div>
-                  </div>                                
-                  <div class="panel-body">                                    
+                  </div>    
+                  <% if !user.active %>
+                    <div class="alert-danger text-center"> Usuário Bloqueado </div>
+                  <% end %>                            
+                  <div class="panel-body"> 
                       <div class="contact-info">
-                          <p><small>Telefone</small><br/>(555) 555-55-55</p>
-                          <p><small>Email</small><br/>nadiaali@domain.com</p>
+                          <p><small>Telefone</small><br/>(<%= user.phone %></p>
+                          <p><small>Email</small><br/><%= user.email %></p>
                       </div>
-                      <div class="col-md-6">
-                          <button class="btn btn-default btn-block"><span class="fa fa-pencil"></span> Editar Usuário </button>
-                      </div>
-                      <div class="col-md-6">
-                          <button class="btn btn-info btn-block"><span class="fa fa-refresh"></span> Resetar Senha </button>
+                      <div class="col-md-12">
+                        <%= link_to edit_user_path(user) do %>
+                          <button class="btn btn-default btn-block" href="#"><span class="fa fa-pencil"></span> Editar Usuário </button>
+                        <% end %>
                       </div>
                   </div>                                
               </div>
           </div>
           <!-- END CONTACT ITEM -->
-
+          <% end %>
       </div>
- 
-
-      
-      
       
       <div class="row">
           <div class="col-md-12">
