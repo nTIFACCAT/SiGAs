@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'logout' => 'accounts#logout', as: :logout
   get 'preferences' => 'accounts#preferences', as: :preferences
   get 'status-change/:user_id' => 'users#status_change', as: :status_change
+  get 'reset-password/:user_id' => 'users#reset_pwd', as: :reset_password
   get 'remove-user/:user_id' => 'users#destroy', as: :remove_user
   resources :dashboards
   resources :associates
@@ -13,3 +14,4 @@ Rails.application.routes.draw do
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
+

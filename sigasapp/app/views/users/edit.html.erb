@@ -45,7 +45,7 @@
                     <% end %>
                   </div>
                   <div class="col-md-2">
-                    <button class="btn btn-info btn-block" ><span class="fa fa-refresh"></span> Resetar Senha </button>
+                    <button onclick="notyConfirm('<%= reset_password_path(@user.id) %>');" class="btn btn-info btn-block" ><span class="fa fa-refresh"></span> Resetar Senha </button>
                   </div>
               </div> 
           </div> 

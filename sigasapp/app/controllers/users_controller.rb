@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         # Tell the UserMailer to send a welcome email after save
-        # UserMailer.welcome_email(@user,pwd).deliver
+        UserMailer.welcome_email(@user,pwd).deliver
         
         format.html { redirect_to users_path, notice: 'Usuário cadastrado com sucesso.' }
         format.json { render action: 'show', status: :created, location: users_path }
@@ -76,6 +76,23 @@ class UsersController < ApplicationController
       if @user.save!
         format.html { redirect_to users_path}
         format.json { head :no_content }
+      end
+    end
+  end
+  
+  def reset_pwd
+    @user = User.find(params[:user_id])
+    pwd = User.random_password
+    @user.password = pwd
+    respond_to do |format|
+      if @user.save
+        # Tell the UserMailer to send a welcome email after save
+        UserMailer.reset_pwd_email(@user,pwd).deliver
+        format.html { redirect_to users_path, notice: 'Uma nova senha foi enviada para o endereço de e-mail.' }
+        format.json { render action: 'show', status: :created, location: users_path }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end

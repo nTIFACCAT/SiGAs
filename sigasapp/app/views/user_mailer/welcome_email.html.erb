@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div>
+    <img src="https://trello-attachments.s3.amazonaws.com/579bb8b2e628308f53e8667b/585742eccf2d3835c448a69e/aac5c175357dde39fe9d9e784ca2520f/LogoSigas_Color.png">
+  </div>
+    
+    <br />
+    <h2> <%= @user.name %>,</h2>
+ 
+  <p>Você acaba de ser registrado em http://...</p>
+  <p>Seus dados de acesso ao sistema são:</p>
+
+  <div style="margin-left:50px;">
+    <b>E-mail:</b>  <%= @user.email %><br />
+    <b>Senha:</b> <%= @pwd %>
+  </div>
+  
+  <p>Após efetuar o login, você pode alterar esta senha.</p>
+ 
+  <p>Obrigado e tenha um bom dia!</p>
+  </body>
+</html>
