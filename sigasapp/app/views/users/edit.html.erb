@@ -35,22 +35,17 @@
                     <span><strong>IP de acesso:</strong> <%= @user.last_sign_in_ip %> </span>
                   </div>
                   <div class="col-md-2">
-                      <%= link_to @user, method: :delete, data: { confirm: 'Deseja realmente remover este usuário?' } do %>
-                        <button class="btn btn-block btn-danger"> Remover </button>
-                      <% end %>
+                    <button onclick="notyConfirm('<%= remove_user_path(@user.id) %>');" class="btn btn-block btn-danger"> Remover </button>
                   </div>
                   <div class="col-md-2">
-                    <%= link_to status_change_path(@user.id), data: { confirm: 'Deseja confirmar esta operação?' } do %>
-                      <% if @user.active %>
-                        <button class="btn btn-block btn-warning"> Bloquear </button>
-                      <% else %>
-                        <button class="btn btn-block btn-primary"> Desbloquear </button>
-                      <% end %>
+                    <% if @user.active %>
+                      <button onclick="notyConfirm('<%= status_change_path(@user.id) %>');" class="btn btn-block btn-warning"> Bloquear </button>
+                    <% else %>
+                      <button onclick="notyConfirm('<%= status_change_path(@user.id) %>');" class="btn btn-block btn-primary"> Desbloquear </button>
                     <% end %>
                   </div>
                   <div class="col-md-2">
                     <button class="btn btn-info btn-block" ><span class="fa fa-refresh"></span> Resetar Senha </button>
-                    <button class="btn btn-default" onclick="noty({text: 'Center top notify', layout: 'topCenter'});">Center top</button>
                   </div>
               </div> 
           </div> 
@@ -60,4 +55,5 @@
 </div>
 
 <%= render 'form', user: @user %>
+
 

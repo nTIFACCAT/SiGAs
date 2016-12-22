@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'logout' => 'accounts#logout', as: :logout
   get 'preferences' => 'accounts#preferences', as: :preferences
   get 'status-change/:user_id' => 'users#status_change', as: :status_change
+  get 'remove-user/:user_id' => 'users#destroy', as: :remove_user
   resources :dashboards
   resources :associates
   resources :users

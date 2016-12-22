@@ -116,7 +116,22 @@ $(function(){
             rdc_resize();
         },200);    
     });
-    
-    
 });
 
+function notyConfirm(url){
+    noty({
+        text: 'Deseja confirmar esta operação?',
+        layout: 'center',
+        buttons: [
+                {addClass: 'btn btn-success btn-clean', text: 'Sim', onClick: function($noty) {
+                    $noty.close();
+                    window.location= url ; 
+                }
+                },
+                {addClass: 'btn btn-danger btn-clean', text: 'Cancelar', onClick: function($noty) {
+                    $noty.close();
+                    }
+                }
+            ]
+    })                                                    
+}               
