@@ -1,17 +1,172 @@
-<%= form_for(associate) do |f| %>
-  <% if associate.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(associate.errors.count, "error") %> prohibited this associate from being saved:</h2>
+<div class="page-content-wrap">
+    <div class="col-md-12">
+        <%= form_for @associate, html: {class: "form-horizontal", multipart: true} do |f| %>
+        
+        <div class="col-md-12">
 
-      <ul>
-      <% associate.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+           <div class="row">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">Dados Pessoais</h3>
+                  </div>
+                  <div class="panel-body">
+                      <% if @associate.errors.any? %>
+                        <div class="alert alert-danger col-md-9">
+                          <b>Foram encontrados alguns erros:</b><br /> 
+                          <ul>
+                              <% @associate.errors.full_messages.each do |msg| %>
+                                <li><%= msg %></li>
+                              <% end %>
+                            </ul>
+                        </div>
+                      <% end %>
+                      
+                      <div class="form-group">
+                          <div class="col-md-1"></div>
+                          <label class="col-md-1 control-label">Nome Completo: </label>
+                          <div class="col-md-5">                                            
+                              <%= f.text_field :name, id: :name, class: 'form-control'%>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <div class="col-md-1"></div>
+                          <label class="col-md-1 control-label">CPF: </label>
+                          <div class="col-md-2">                                            
+                              <%= f.text_field :cpf, id: :cpf, class: 'mask_cpf form-control'%>
+                          </div>
+                          <label class="col-md-1 control-label">RG: </label>
+                          <div class="col-md-2">                                            
+                              <%= f.text_field :rg, id: :rg, class: 'form-control'%>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <div class="col-md-1"></div>
+                          <label class="col-md-1 control-label">Sexo: </label>
+                          <div class="col-md-2">                                            
+                              <%= f.select :gender, [['Feminino', 'F'], ['Masculino', 'M'], ['Outro', 'O']], {},{:class => "form-control select"}  %>
+                          </div>
+                          <label class="col-md-1 control-label">Data Nascimento: </label>
+                          <div class="col-md-2">                                            
+                              <%= f.text_field :birthdate, id: :birthdate, class: 'form-control datepicker'%>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <div class="col-md-1"></div>
+                          <label class="col-md-1 control-label">Foto: </label>
+                          <div class="col-md-5">                                            
+                              <%= f.file_field :photo, class: 'form-control' %>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">Dados de Contato</h3>
+                  </div>
+                  <div class="panel-body">
+                      <div class="form-group">
+                          <div class="col-md-1"></div>
+                          <label class="col-md-1 control-label">Fone: </label>
+                          <div class="col-md-2">                                            
+                              <%= f.text_field :phone, id: :phone, class: 'form-control'%>
+                          </div>
+                          <label class="col-md-1 control-label">Fone secundário: </label>
+                          <div class="col-md-2">                                            
+                              <%= f.text_field :optional_phone, id: :optional_phone, class: 'form-control'%>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <div class="col-md-1"></div>
+                          <label class="col-md-1 control-label">E-mail: </label>
+                          <div class="col-md-5">                                            
+                              <div class="input-group">
+                                  <span class="input-group-addon"> @ </span>
+                                  <%= f.text_field :email, id: :email, class: 'form-control'%>
+                              </div>                                            
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <div class="col-md-1"></div>
+                          <label class="col-md-1 control-label">Endereço: </label>
+                          <div class="col-md-5">                                            
+                              <%= f.text_field :address, id: :address, class: 'form-control'%>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <div class="col-md-1"></div>
+                          <label class="col-md-1 control-label">Bairro: </label>
+                          <div class="col-md-3">                                            
+                              <%= f.text_field :district, id: :district, class: 'form-control'%>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <div class="col-md-1"></div>
+                          <label class="col-md-1 control-label">Cidade: </label>
+                          <div class="col-md-2">                                            
+                              <%= f.text_field :city, id: :city, class: 'form-control'%>
+                          </div>
+                          <label class="col-md-1 control-label">CEP: </label>
+                          <div class="col-md-2">                                            
+                              <%= f.text_field :cep, id: :cep, class: 'mask_cep form-control'%>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">Dados Sociais</h3>
+                  </div>
+                  <div class="panel-body">
+                      <div class="form-group">
+                          <div class="col-md-1"></div>
+                          <label class="col-md-1 control-label">Categoria: </label>
+                          <div class="col-md-2">                                            
+                              <%= f.select :category, options_for_select(Category.all.map{ |u| [u.description, u.id] }), {},{:class => "form-control select"}  %>
+                          </div>
+                          <label class="col-md-1 control-label">Data de Admissão: </label>
+                          <div class="col-md-2">                                            
+                              <%= f.text_field :adminission_date, id: :adminission_date, class: 'form-control datepicker'%>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <div class="col-md-1"></div>
+                          <label class="col-md-1 control-label">Observações: </label>
+                          <div class="col-md-5">                                            
+                              <%= f.text_field :obs, id: :obs, class: 'form-control'%>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            
+            <div class="row">         
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Controle</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-lg btn-info"> Salvar </button>
+                        </div>
+                    </div> 
+                </div> 
+            </div> 
+        </div>    
+        <% end %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

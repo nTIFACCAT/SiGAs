@@ -7,18 +7,18 @@
     </li>  
     <li>Sócios</li>                  
     <li>
-      <%= link_to associates_path do %>
-        Quadro Social
+      <%= link_to categories_path do %>
+        Categorias
       <% end %>
     </li>
-    <li class="active">Cadastrar Novo Sócio</li>
+    <li class="active">Editar Categoria</li>
 </ul>
 <!-- END BREADCRUMB -->   
 
 <!-- PAGE TITLE -->
 <div class="page-title">                    
-    <h2><span class="fa fa-users"></span> Cadastrar Novo Sócio </h2>
+    <h2><span class="fa fa-users"></span> Editar Categoria </h2>
 </div>
 <!-- END PAGE TITLE -->   
 
-<%= render 'form', associate: @associate %>
+<%= render 'form', category: @category %>

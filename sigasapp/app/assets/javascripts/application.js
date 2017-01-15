@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap.min.js
+//= require bootstrap-datepicker.js
+//= require bootstrap-datepicker.pt-BR.js
 //= require jquery-ui.min.js
 //= require daterangepicker.js
 //= require jquery.mCustomScrollbar.min.js
@@ -23,6 +25,7 @@
 //= require jquery.noty.js
 //= require noty-topCenter.js
 //= require noty-theme-default.js
+//= require jquery.maskedinput.min.js
 //= require plugins.js
 //= require actions.js
 //= require demo_dashboard.js

@@ -1,25 +1,198 @@
-<p id="notice"><%= notice %></p>
+  <!-- START BREADCRUMB -->
+  <ul class="breadcrumb">
+      <li>
+        <%= link_to dashboards_path do %>
+          Início
+        <% end %>  
+      </li>  
+      <li>Sócios</li>                  
+      <li class="active">Quadro Social</li>
+  </ul>
+  <!-- END BREADCRUMB -->   
 
-<h1>Associates</h1>
+  <!-- PAGE TITLE -->
+  <div class="page-title">                    
+      <h2><span class="fa fa-users"></span> Quadro Social </h2>
+  </div>
+  <!-- END PAGE TITLE -->
+  
+  <div class="page-content-wrap">
+    <div class="col-md-6">
+      
+        <div class="row">         
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-10">
+                      <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                        <input type="text" class="form-control" placeholder="Procurar por sócio...">
+                      </div>
+                    </div>              
+                    <div class="col-md-1"> 
+                      <button type="button" class="btn btn-default"> Buscar </button>
+                    </div>                
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myFilterModal">
+                        <span class="fa fa-cog"></span>
+                      </button>
+                    </div>
+                </div> 
+            </div> 
+        </div> 
+  </div>
+  
+  <div class="col-md-6">
+      <div class="row">         
+          <div class="panel panel-default">
+              <div class="panel-body">
+                  <div class="col-md-3">
+                    <%= link_to new_associate_path do %>
+                      <button class="btn btn-success" > Cadastrar Sócio </button>
+                    <% end %>
+                  </div>
+              </div> 
+          </div> 
+      </div> 
+  </div>
+</div>                            
+  
+  <!-- PAGE CONTENT WRAPPER -->
+  <div class="page-content-wrap">
+      <div class="row">
+          <% @associates.each do |associate| %>
+          <!-- CONTACT ITEM -->
+          <div class="col-md-3">
+              <div class="panel panel-default">
+                  <div class="panel-body profile profile-black">
+                      <div class="profile-image">
+                          <%= image_tag associate.photo.url %>
+                      </div>
+                      <div class="profile-data">
+                          <div class="profile-data-name"><%= associate.name %></div>
+                          <div class="profile-data-title"><%= associate.registration %></div>
+                      </div>
+                  </div>    
+                  <% if !associate.active? %>
+                    <div class="alert-gray text-center"> Usuário Inativo </div>
+                  <% end %>                            
+                  <div class="panel-body"> 
+                      
+                      <div class="col-md-12">
+                        <%= link_to associate_path(associate) do %>
+                          <button class="btn btn-default btn-lg btn-block">
+                            Visualizar 
+                          </button>
+                        <% end %>
+                      </div>
+                  </div>                                
+              </div>
+          </div>
+          <!-- END CONTACT ITEM -->
+          <% end %>
+      </div>
+      
+      
+      
+      
+      <center>
+        <ul class="pagination pagination-sm push-down-20">
+            <li class="disabled"><a href="#">«</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>                                    
+            <li><a href="#">»</a></li>
+        </ul>      
+      </center>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @associates.each do |associate| %>
-      <tr>
-        <td><%= link_to 'Show', associate %></td>
-        <td><%= link_to 'Edit', edit_associate_path(associate) %></td>
-        <td><%= link_to 'Destroy', associate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
 
-<%= link_to 'New Associate', new_associate_path %>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myFilterModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Outros Filtros de Busca</h4>
+      </div>
+      <div class="modal-body">
+        <form action="#" role="form" class="form-horizontal">
+          <div class="form-group">
+              <div class="col-md-3"></div>
+              <label class="col-md-4 control-label text-left">Incluir Registros Inativos</label>
+              <div class="col-md-3">
+                  <label class="switch">
+                      <input type="checkbox" class="switch" value="1" checked/>
+                      <span></span>
+                  </label>                                            
+              </div>
+          </div>                                    
+          <div class="form-group">
+              <label class="col-md-4 control-label text-left">Location</label>
+              <div class="col-md-3">
+                  <label class="switch">
+                      <input type="checkbox" class="switch" value="1" checked/>
+                      <span></span>
+                  </label>
+              </div>
+              <div class="col-md-5">
+                  <span class="help-block">Access your location</span>
+              </div>                                        
+          </div>
+          <div class="form-group">
+              <label class="col-md-4 control-label text-left">Celluar</label>
+              <div class="col-md-3">
+                  <label class="switch">
+                      <input type="checkbox" class="switch" value="1"/>
+                      <span></span>
+                  </label>
+              </div>
+              <div class="col-md-5">
+                  <span class="help-block">They steal money :(</span>
+              </div>                                        
+          </div>
+          <div class="form-group">
+              <label class="col-md-4 control-label text-left">Find my Phone</label>
+              <div class="col-md-3">
+                  <label class="switch">
+                      <input type="checkbox" class="switch" value="1" checked/>
+                      <span></span>
+                  </label>
+              </div>
+              <div class="col-md-5">
+                  <span class="help-block">Nice feature</span>
+              </div>                                                                                
+          </div>
+          <div class="form-group">
+              <label class="col-md-4 control-label text-left">Sounds</label>
+              <div class="col-md-3">
+                  <label class="switch">
+                      <input type="checkbox" class="switch" value="1"/>
+                      <span></span>
+                  </label>
+              </div>
+              <div class="col-md-5">
+                  <span class="help-block">Wanna mute?</span>
+              </div>                                                                                
+          </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

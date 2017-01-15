@@ -897,7 +897,8 @@ body.page-container-boxed .page-container {
  color: #FFF;
  height: 50px;
  text-align: center;
- background: #1caf9a;
+ //background: #1caf9a;
+ background: #cacaca;
 }
 .x-navigation > li.xn-logo > a:first-child:hover {
   background-color: #1caf9a;
@@ -1070,6 +1071,8 @@ body.page-container-boxed .page-container {
 .profile .profile-image img {
   width: 120px;
   height: 120px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   border: 0px solid #FFF;
   -moz-border-radius: 20%;
   -webkit-border-radius: 20%;
@@ -2420,6 +2423,11 @@ label.valid {
   color: #FFF;
   border-color: #fe9e19;
 }
+.alert-gray {
+  background-color: #848484;
+  color: #FFF;
+  border-color: #fe9e19;
+}
 .alert-danger {
   background-color: #E04B4A;
   color: #FFF;
@@ -2948,7 +2956,8 @@ blockquote.pull-right {
   border-bottom: 0px;
   margin-bottom: 0px;
   margin-top: -40px;
-  padding: 0px 5px;
+  padding: 0px -10px;
+  margin-left: 0px;
 }
 .block-head .nav-tabs {
   border-bottom: 0px;

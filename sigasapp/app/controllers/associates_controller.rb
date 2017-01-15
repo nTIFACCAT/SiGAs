@@ -1,5 +1,6 @@
 class AssociatesController < ApplicationController
   before_action :set_associate, only: [:show, :edit, :update, :destroy]
+  #before_filter :access_verify, except: [:show, :edit, :update]
 
   # GET /associates
   # GET /associates.json
@@ -28,7 +29,7 @@ class AssociatesController < ApplicationController
 
     respond_to do |format|
       if @associate.save
-        format.html { redirect_to @associate, notice: 'Associate was successfully created.' }
+        format.html { redirect_to @associate, notice: 'Novo sócio cadastrado com sucesso. ' }
         format.json { render :show, status: :created, location: @associate }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class AssociatesController < ApplicationController
   def update
     respond_to do |format|
       if @associate.update(associate_params)
-        format.html { redirect_to @associate, notice: 'Associate was successfully updated.' }
+        format.html { redirect_to @associate, notice: 'Dados do sócio atualizados com sucesso.' }
         format.json { render :show, status: :ok, location: @associate }
       else
         format.html { render :edit }
@@ -60,6 +61,17 @@ class AssociatesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def status_change
+    associate = Associate.find(params[:associate_id])
+    associate.active = !associate.active
+    respond_to do |format|
+      if associate.save!
+        format.html { redirect_to associate}
+        format.json { head :no_content }
+      end
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +81,13 @@ class AssociatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def associate_params
-      params.fetch(:associate, {})
+      params.fetch(:associate, {}).permit(:name, :gender, :birthdate, :photo, :cpf, :rg, :address, :district, :city, :cep, :phone, :optional_phone, :email, :category, :adminission_date, :obs)
+    end
+    
+   protected
+    def access_verify
+      #unless ["admin"].include? User.find(session[:current_user]).permission
+      redirect_to dashboards_path
+      #end
     end
 end

@@ -1,4 +1,97 @@
-<p id="notice"><%= notice %></p>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li>
+      <%= link_to dashboards_path do %>
+        Início
+      <% end %>  
+    </li>  
+    <li>Sócios</li>                  
+    <li>
+      <%= link_to associates_path do %>
+        Quadro Social
+      <% end %>
+    </li>
+    <li class="active">Exibir Sócio</li>
+</ul>
+<!-- END BREADCRUMB -->   
 
-<%= link_to 'Edit', edit_associate_path(@associate) %> |
-<%= link_to 'Back', associates_path %>
+<!-- PAGE TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-user"></span> <%= @associate.name %> </h2>
+</div>
+<!-- END PAGE TITLE -->  
+
+<div class="page-content-wrap">
+    <div class="col-md-12">
+      
+      <div class="col-md-12">
+
+           <div class="row">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">Gerenciamento</h3>
+                  </div>
+                  <div class="panel-body">
+                    
+                    <div class="col-md-2">
+                      <%= link_to edit_associate_path(@associate) do %>
+                        <button class="btn btn-block btn-primary"> Editar Cadastro </button>
+                      <% end %>
+                    </div>
+                    
+                    
+                    <div class="col-md-2">
+                      <% if @associate.active %>
+                        <button onclick="notyConfirm('<%= associate_status_change_path(@associate.id) %>');" class="btn btn-block btn-primary"> Desativar Cadastro </button>
+                      <% else %>
+                        <button onclick="notyConfirm('<%= associate_status_change_path(@associate.id) %>');" class="btn btn-block btn-warning"> Reativar Cadastro </button>
+                      <% end %>
+                    </div>                    
+                    
+                  </div>
+             </div>
+           </div>
+           
+           <!-- START JUSTIFIED TABS -->
+            <div class="panel panel-default tabs">
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#tabPersonal" data-toggle="tab">Dados Pessoais</a></li>
+                    <li><a href="#tabContact" data-toggle="tab">Contato</a></li>
+                    <li><a href="#tabAssociate" data-toggle="tab">Social</a></li>
+                    <li><a href="#tabFinancial" data-toggle="tab">Financeiro</a></li>
+                </ul>
+                <div class="panel-body tab-content">
+                    <div class="tab-pane active" id="tabPersonal">
+                        <div class="col-md-3">
+                        <div class="col-md-3 profile">
+                          <div class="profile-image">
+                            <%= image_tag @associate.photo.url %>
+                          </div>
+                        </div>
+                        </div>
+                    
+                    
+                    </div>
+                    
+                    <div class="tab-pane" id="tabContact">
+                        <p>Donec tristique eu sem et aliquam. Proin sodales elementum urna et euismod. Quisque nisl nisl, venenatis eget dignissim et, adipiscing eu tellus. Sed nulla massa, luctus id orci sed, elementum consequat est. Proin dictum odio quis diam gravida facilisis. Sed pharetra dolor a tempor tristique. Sed semper sed urna ac dignissim. Aenean fermentum leo at posuere mattis. Etiam vitae quam in magna viverra dictum. Curabitur feugiat ligula in dui luctus, sed aliquet neque posuere.</p>
+                    </div>
+                    
+                    <div class="tab-pane" id="tabAssociate">
+                        <p>Vestibulum cursus augue sed leo tempor, at aliquam orci dictum. Sed mattis metus id velit aliquet, et interdum nulla porta. Etiam euismod pellentesque purus, in fermentum eros venenatis ut. Praesent vitae nibh ac augue gravida lacinia non a ipsum. Aenean vestibulum eu turpis eu posuere. Sed eget lacus lacinia, mollis urna et, interdum dui. Donec sed diam ut metus imperdiet malesuada. Maecenas tincidunt ultricies ipsum, lobortis pretium dolor sodales ut. Donec nec fringilla nulla. In mattis sapien lorem, nec tincidunt elit scelerisque tempus.</p>
+                    </div>
+                    
+                    <div class="tab-pane" id="tabFinancial">
+                        <p>Dados Financeiros e Bla Bla Blad velit aliquet, et interdum nulla porta. Etiam euismod pellentesque purus, in fermentum eros venenatis ut. Praesent vitae nibh ac augue gravida lacinia non a ipsum. Aenean vestibulum eu turpis eu posuere. Sed eget lacus lacinia, mollis urna et, interdum dui. Donec sed diam ut metus imperdiet malesuada. Maecenas tincidunt ultricies ipsum, lobortis pretium dolor sodales ut. Donec nec fringilla nulla. In mattis sapien lorem, nec tincidunt elit scelerisque tempus.</p>
+                    </div>                                                
+                </div>
+            </div>                                         
+            <!-- END JUSTIFIED TABS -->
+             
+           
+             
+             
+             
+              
+    </div> 
+</div>

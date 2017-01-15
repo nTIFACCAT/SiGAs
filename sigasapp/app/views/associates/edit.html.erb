@@ -1,6 +1,24 @@
-<h1>Editing Associate</h1>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li>
+      <%= link_to dashboards_path do %>
+        Início
+      <% end %>  
+    </li>  
+    <li>Sócios</li>                  
+    <li>
+      <%= link_to associates_path do %>
+        Quadro Social
+      <% end %>
+    </li>
+    <li class="active">Editar Sócio</li>
+</ul>
+<!-- END BREADCRUMB -->   
+
+<!-- PAGE TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-users"></span> Editar Sócio </h2>
+</div>
+<!-- END PAGE TITLE -->   
 
 <%= render 'form', associate: @associate %>
-
-<%= link_to 'Show', @associate %> |
-<%= link_to 'Back', associates_path %>

@@ -1,0 +1,71 @@
+  <!-- START BREADCRUMB -->
+  <ul class="breadcrumb">
+      <li>
+        <%= link_to dashboards_path do %>
+          Início
+        <% end %>  
+      </li>  
+      <li>Sócios</li>                  
+      <li class="active">Categorias</li>
+  </ul>
+  <!-- END BREADCRUMB -->   
+
+  <!-- PAGE TITLE -->
+  <div class="page-title">                    
+      <h2><span class="fa fa-tags"></span> Gerenciamento de Categorias de Sócios </h2>
+  </div>
+  <!-- END PAGE TITLE -->
+  
+  <!-- PAGE CONTENT WRAPPER -->
+  <div class="page-content-wrap">
+     <div class="col-md-12">
+        <div class="row">         
+          <div class="panel panel-default">
+              
+              <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <%= link_to new_category_path do %>
+                        <button class="btn btn-sm btn-info"> + Adicionar Categoria </button>
+                      <%end%>
+                    </div>
+                  </div> 
+                  
+                  <br />
+                    
+                  <div class="row">
+                    
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Descrição</th>
+                          <th>Valor à Vista</th>
+                          <th>Valor Parcelado</th>
+                          <th colspan="2"></th>
+                        </tr>
+                      </thead>
+                    
+                      <tbody>
+                        <% @categories.each do |category| %>
+                          <tr>
+                            <td><%= category.description %></td>
+                            <td>R$ <%= category.value_in_cash %></td>
+                            <td>R$ <%= category.value_in_installments %></td>
+                            <td>
+                              <%= link_to edit_category_path(category) do %>
+                                <button class="btn btn-default"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar </button>
+                              <%end%>
+                              <button onclick="notyConfirm('<%= remove_category_path(category.id) %>');" class="btn btn-danger"> <i class="fa fa-times" aria-hidden="true"></i> Remover </button>
+                            </td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+
+                  </div> 
+                  
+              </div> 
+          </div> 
+      </div>  
+  </div>
+ </div>    

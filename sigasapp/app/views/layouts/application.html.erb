@@ -41,10 +41,21 @@
                           <span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span>
                         <% end %>                        
                     </li>
-                    <li>
-                        <%= link_to associates_path do %>
-                          <span class="fa fa-users"></span> <span class="xn-text">Sócios</span>
-                        <% end %>
+                    <li class="xn-openable">
+                        <a href="#"><span class="fa fa-users"></span> <span class="xn-text">Sócios</span></a>
+                        <ul>
+                            <li>
+                               <%= link_to associates_path do %>
+                                  <span class="fa fa-user"></span> Quadro Social
+                               <% end %> 
+                            </li>
+                            <li>
+                              <%= link_to categories_path do %>
+                                <span class="fa fa-tags"></span> Categorias</a>
+                              <% end %>   
+                            </li>
+                               
+                        </ul>
                     </li>
                     <li>
                         <%= link_to associates_path do %>

@@ -4,7 +4,7 @@ $(function() {
         // Bootstrap datepicker
         var feDatepicker = function(){                        
             if($(".datepicker").length > 0){
-                $(".datepicker").datepicker({format: 'yyyy-mm-dd'});                
+                $(".datepicker").datepicker({format: 'dd/mm/yyyy', language: 'pt-BR'});                
                 $("#dp-2,#dp-3,#dp-4").datepicker(); // Sample
             }           
             
@@ -88,13 +88,10 @@ $(function() {
         //Masked Inputs
         var feMasked = function(){            
             if($("input[class^='mask_']").length > 0){
-                $("input.mask_tin").mask('99-9999999');
-                $("input.mask_ssn").mask('999-99-9999');        
+                $("input.mask_cpf").mask('999.999.999-99');
                 $("input.mask_date").mask('9999-99-99');
-                $("input.mask_product").mask('a*-999-a999');
-                $("input.mask_phone").mask('99 (999) 999-99-99');
-                $("input.mask_phone_ext").mask('99 (999) 999-9999? x99999');
-                $("input.mask_credit").mask('9999-9999-9999-9999');        
+                $("input.mask_cep").mask('99999-999');
+                $("input.mask_phone").mask('(999) 999999999');        
                 $("input.mask_percent").mask('99%');
             }            
         }//END Masked Inputs
@@ -147,10 +144,10 @@ $(function() {
         return {// Init all form element features
 		init: function(){                    
                     feDatepicker();                    
-                    feTimepicker();
-                    feColorpicker();
-                    feSelect();
-                    feValidation();
+                    //feTimepicker();
+                    //feColorpicker();
+                    //feSelect();
+                    //feValidation();
                     feMasked();
                     feTooltips();
                     fePopover();

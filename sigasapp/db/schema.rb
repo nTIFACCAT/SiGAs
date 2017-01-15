@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216140805) do
+ActiveRecord::Schema.define(version: 20170114150110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,38 @@ ActiveRecord::Schema.define(version: 20161216140805) do
   end
 
   create_table "associates", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "registration",                      null: false
+    t.string   "name",                              null: false
+    t.string   "gender",                            null: false
+    t.date     "birthdate",                         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.string   "cpf",                               null: false
+    t.string   "rg",                                null: false
+    t.string   "address",                           null: false
+    t.string   "district",                          null: false
+    t.string   "city",                              null: false
+    t.string   "cep",                               null: false
+    t.string   "phone",                             null: false
+    t.string   "optional_phone"
+    t.string   "email"
+    t.integer  "category_id",                       null: false
+    t.date     "adminission_date",                  null: false
+    t.boolean  "active",             default: true, null: false
+    t.string   "obs"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["category_id"], name: "index_associates_on_category_id", using: :btree
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "description",           null: false
+    t.float    "value_in_cash",         null: false
+    t.float    "value_in_installments", null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "dashboards", force: :cascade do |t|

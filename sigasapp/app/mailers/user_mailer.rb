@@ -8,7 +8,7 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Bem-vindo ao FACCAT SiGAs')
   end
   
-  def reser_pwd_email(user, pwd)
+  def reset_pwd_email(user, pwd)
     @user = user
     @pwd = pwd
     mail(to: @user.email, subject: 'Sua senha foi alterada | FACCAT SiGAs')
