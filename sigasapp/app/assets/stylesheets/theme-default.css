@@ -1078,6 +1078,18 @@ body.page-container-boxed .page-container {
   -webkit-border-radius: 20%;
   border-radius: 20%;
 }
+
+.profile-image-expanded img {
+  width: 220px;
+  height: 220px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0px solid #FFF;
+  -moz-border-radius: 20%;
+  -webkit-border-radius: 20%;
+  border-radius: 20%;
+}
+
 .profile .profile-data {
   width: 100%;
   float: left;
@@ -1397,6 +1409,7 @@ a.list-group-item:focus {
 }
 .friend img {
   width: 100%;
+  height: 100px;
   border: 3px solid #F5F5F5;
   -moz-border-radius: 20%;
   -webkit-border-radius: 20%;
@@ -1957,6 +1970,12 @@ ul.panel-controls > li > .dropdown-menu:before {
   -ms-transition: all 200ms ease;
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
+}
+.btn-square {
+  height: 100px;
+  font-size: 14px;
+  padding: 8px 20px;
+  margin-top: 20px;
 }
 .btn.btn-lg,
 .btn-group-lg > .btn {
