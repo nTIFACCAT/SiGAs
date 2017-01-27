@@ -98,50 +98,64 @@
                     </div>
                     
                     <div class="tab-pane" id="tabAssociate">
-                          <div class="row">
-                            <div class="col-md-3"> <strong>Categoria: </strong> <%= @associate.category.description %> 
-                              <% if @associate.category.id == 2 %>
-                                <% bond = AssociateBond.where(dependent_id: @associate.id) %>    
-                                <% if bond.any? %>
-                                    (<%= link_to Associate.find(bond.first.associate_id).name, associate_path(bond.first.associate_id) %>)
-                                <% end %>
-                              <% end %><br />
-                            <strong>Data de Admissão: </strong> <%= @associate.adminission_date.strftime('%d/%m/%Y') %> </div>
-                            <div class="col-md-5"> 
-                              <strong>Cargos: </strong>
-                              <span id="direction_roles"> </span>
-                            </div>
-                            <div class="col-md-4 col-xs-4">
-                              <% if @associate.category.allow_dependents? %>                               
-                                <button class="btn btn-default" data-toggle="modal" data-target="#add_dependent_modal"> Vincular Dependente </button>
+                        <div class="row">
+                          <div class="col-md-3"> <strong>Categoria: </strong> <%= @associate.category.description %> 
+                            <% if @associate.category.id == 2 %>
+                              <% bond = AssociateBond.where(dependent_id: @associate.id) %>    
+                              <% if bond.any? %>
+                                  (<%= link_to Associate.find(bond.first.associate_id).name, associate_path(bond.first.associate_id) %>)
                               <% end %>
-                              <button class="btn btn-default" onclick="manageDirectionRole(<%= @associate.id %>)" data-toggle="modal" data-target="#add_direction_role_modal"> Gerenciar Cargos </button> 
+                            <% end %><br />
+                          <strong>Data de Admissão: </strong> <%= @associate.adminission_date.strftime('%d/%m/%Y') %> </div>
+                          <div class="col-md-5"> 
+                            <strong>Cargos: </strong>
+                            <span id="direction_roles"> </span>
+                          </div>
+                          <div class="col-md-4 col-xs-4">
+                            <% if @associate.category.allow_dependents? %>                               
+                              <button class="btn btn-default" data-toggle="modal" data-target="#add_dependent_modal"> Vincular Dependente </button>
+                            <% end %>
+                            <button class="btn btn-default" onclick="manageDirectionRole(<%= @associate.id %>)" data-toggle="modal" data-target="#add_direction_role_modal"> Gerenciar Cargos </button> 
+                          </div>
+                        </div>
+                        
+                        <% if @associate.category.allow_dependents? %>
+                        <div class="row">
+                          <div class="panel-body">
+                            <h4 class="text-title">Dependentes</h4>
+                            <div class="row" id="dependents_cards">
                             </div>
                           </div>
-                          
-                          <% if @associate.category.allow_dependents? %>
-                          <div class="row">
-                            <div class="panel-body">
-                              <h4 class="text-title">Dependentes</h4>
-                              <div class="row" id="dependents_cards">
-                              </div>
-                            </div>
-                          </div>
-                          <% end %>
-                          
-                      
-                        
-                          
-                        
-                        
-                        
-                        
-                        
-                        
+                        </div>
+                        <% end %>
                     </div>
                     
                     <div class="tab-pane" id="tabFinancial">
-                        <p>Dados Financeiros e Bla Bla Blad velit aliquet, et interdum nulla porta. Etiam euismod pellentesque purus, in fermentum eros venenatis ut. Praesent vitae nibh ac augue gravida lacinia non a ipsum. Aenean vestibulum eu turpis eu posuere. Sed eget lacus lacinia, mollis urna et, interdum dui. Donec sed diam ut metus imperdiet malesuada. Maecenas tincidunt ultricies ipsum, lobortis pretium dolor sodales ut. Donec nec fringilla nulla. In mattis sapien lorem, nec tincidunt elit scelerisque tempus.</p>
+                        <div class="row">
+                          <div class="col-md-1">
+                            <select>
+                              <option> 2017 </option>
+                            </select>
+                          </div>
+                          
+                          <div class="col-md-6">
+                            <button class="btn btn-default" data-toggle="modal" data-target="#add_dependent_modal"> Nova cobrança </button>
+                            <button class="btn btn-primary"> Gerar anuidade  </button>
+                            
+                            <!-- TODO Listar as Cobranças do Ano | Botão de "Registrar Pagamento" | Botão Cancelar | Select Ano atualiza a listagem -->
+                            
+                          </div>
+                        </div>
+                        
+                        <% if @associate.category.allow_dependents? %>
+                        <div class="row">
+                          <div class="panel-body">
+                            <h4 class="text-title">Dependentes</h4>
+                            <div class="row" id="dependents_cards">
+                            </div>
+                          </div>
+                        </div>
+                        <% end %>
                     </div>                                                
                 </div>
             </div>                                         

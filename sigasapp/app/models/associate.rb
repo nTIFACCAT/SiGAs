@@ -2,6 +2,7 @@ class Associate < ApplicationRecord
   has_attached_file :photo, :default_url => '/assets/default-user-avatar.png'
   belongs_to :category
   has_many :direction_roles
+  has_many :associate_charge
   
   before_validation :generate_associate_registration
   

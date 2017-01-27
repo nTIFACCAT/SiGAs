@@ -1,0 +1,2 @@
+class AssociateChargesController < ApplicationController
+end
