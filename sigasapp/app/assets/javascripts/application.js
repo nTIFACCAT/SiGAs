@@ -26,6 +26,7 @@
 //= require noty-topCenter.js
 //= require noty-theme-default.js
 //= require jquery.maskedinput.min.js
+//= require auto-complete.min.js
 //= require plugins.js
 //= require actions.js
 //= require demo_dashboard.js

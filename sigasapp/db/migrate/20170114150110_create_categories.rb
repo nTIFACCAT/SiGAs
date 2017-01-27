@@ -4,6 +4,7 @@ class CreateCategories < ActiveRecord::Migration[5.0]
       t.string :description, null: false
       t.float :value_in_cash, null: false
       t.float :value_in_installments, null: false
+      t.boolean :allow_dependents, null: false
       t.timestamps
     end
   end

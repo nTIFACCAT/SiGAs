@@ -43,6 +43,14 @@
                         </div>
                         
                         <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <label class="col-md-1 control-label">Possui dependentes? </label>
+                            <div class="col-md-5">                                            
+                                <%= f.select :allow_dependents, [['Sim', true], ['Não', false]], {},{:class => "form-control select"}  %>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
                                 <button class="btn btn-block btn-lg btn-info"> Salvar </button>

@@ -57,13 +57,13 @@
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active"><a href="#tabPersonal" data-toggle="tab">Dados Pessoais</a></li>
                     <li><a href="#tabContact" data-toggle="tab">Contato</a></li>
-                    <li><a href="#tabAssociate" data-toggle="tab">Social</a></li>
+                    <li><a href="#tabAssociate" data-toggle="tab" onclick="loadSocialTab(<%= @associate.id %>)">Social</a></li>
                     <li><a href="#tabFinancial" data-toggle="tab">Financeiro</a></li>
                 </ul>
                 <div class="panel-body tab-content">
                     <div class="tab-pane active" id="tabPersonal">
                       <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                           <div class="profile-image-expanded">
                             <%= image_tag @associate.photo.url %>
                           </div>
@@ -71,8 +71,8 @@
                         <div class="col-md-6">
                           <p> <strong>Nome: </strong> <%= @associate.name %> <br />
                               <strong>Martícula: </strong> <%= @associate.registration %> <br />
-                              <strong>Sexo: </strong> <%= @associate.gender %> <br />
-                              <strong>Data de Nascimento: </strong> <%= @associate.birthdate %> <br />
+                              <strong>Sexo: </strong> <%= @associate.gender_description %> <br />
+                              <strong>Data de Nascimento: </strong> <%= @associate.birthdate.strftime('%d/%m/%Y') %> <br />
                               <strong>CPF: </strong> <%= @associate.cpf %> <br /> 
                               <strong>RG: </strong> <%= @associate.rg %> 
                           </p>
@@ -98,27 +98,39 @@
                     </div>
                     
                     <div class="tab-pane" id="tabAssociate">
-                          <p> <strong>Categoria: </strong> <%= @associate.category.description %> <br />
-                              <strong>Data de Admssão: </strong> <%= @associate.adminission_date %> <br />
-                          </p>
-                      
-                        <div class="panel-body">
-                          <h4 class="text-title">Dependentes</h4>
                           <div class="row">
-                              <div class="col-md-1 col-xs-1">                                            
-                                  <div class="friend">
-                                      <%= image_tag @associate.photo.url %>
-                                      <span> Dejan (Filho) </span>
-                                      <button class="btn btn-default btn-block"> Ver </button>
-                                      <button class="btn btn-danger btn-sm btn-block"> Remover </button>
-                                      
-                                  </div>                                            
-                              </div>
-                              <div class="col-md-1 col-xs-1">                                            
-                                <button class="btn btn-default btn-square" data-toggle="modal" data-target="#add_dependent_modal"> Adicionar Dependente </button> 
-                              </div>
+                            <div class="col-md-3"> <strong>Categoria: </strong> <%= @associate.category.description %> 
+                              <% if @associate.category.id == 2 %>
+                                <% bond = AssociateBond.where(dependent_id: @associate.id) %>    
+                                <% if bond.any? %>
+                                    (<%= link_to Associate.find(bond.first.associate_id).name, associate_path(bond.first.associate_id) %>)
+                                <% end %>
+                              <% end %><br />
+                            <strong>Data de Admissão: </strong> <%= @associate.adminission_date.strftime('%d/%m/%Y') %> </div>
+                            <div class="col-md-5"> 
+                              <strong>Cargos: </strong>
+                              <span id="direction_roles"> </span>
+                            </div>
+                            <div class="col-md-4 col-xs-4">
+                              <% if @associate.category.allow_dependents? %>                               
+                                <button class="btn btn-default" data-toggle="modal" data-target="#add_dependent_modal"> Vincular Dependente </button>
+                              <% end %>
+                              <button class="btn btn-default" onclick="manageDirectionRole(<%= @associate.id %>)" data-toggle="modal" data-target="#add_direction_role_modal"> Gerenciar Cargos </button> 
+                            </div>
                           </div>
-                        </div>
+                          
+                          <% if @associate.category.allow_dependents? %>
+                          <div class="row">
+                            <div class="panel-body">
+                              <h4 class="text-title">Dependentes</h4>
+                              <div class="row" id="dependents_cards">
+                              </div>
+                            </div>
+                          </div>
+                          <% end %>
+                          
+                      
+                        
                           
                         
                         
@@ -146,22 +158,75 @@
 
  <div class="modal" id="add_dependent_modal" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
       <div class="modal-dialog">
-          <div class="modal-content">                    
+          <div class="modal-content">          
+            <form action="<%= create_associate_bond_path(@associate) %>" method="post">          
               <div class="modal-body">
                   <h3>Adicionar Dependente</h3>
-                  
-                  <div class="form-group">
+                  <div class="form-group row">
                       <div class="col-md-1"></div>
                       <label class="col-md-4 control-label">Nome Completo: </label>
                       <div class="col-md-5">                                            
-                          <input type="text" name="name" id="name" class="form-control">
+                          <input onchange="checkDependentForm();" type="text" name="name" id="name" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <div class="col-md-1"></div>
+                      <label class="col-md-4 control-label">Vínculo: </label>
+                      <div class="col-md-5">                                            
+                          <input onchange="checkDependentForm()" type="text" name="bond" id="bond" class="form-control">
                       </div>
                   </div>
                   <br />
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-default btn-success" disabled="true" id="saveDependentFormBtn">Salvar</button>
               </div>
+              </form>
           </div>
       </div>
   </div>        
+  
+  <div class="modal" id="add_direction_role_modal" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">                    
+              <div class="modal-body">
+                  <h3>Gerenciar Cargos em Diretoria</h3>
+                  
+                  
+                  <div class="panel-body">
+                    <h4 class="text-title">Cargos</h4>
+                    <div class="row" id="direction_roles_list">
+                        
+                    </div>
+                  </div>
+                  
+                  <div class="panel-body">
+                    <form action="<%= create_direction_role_path(@associate) %>" method="post">
+                    <h4 class="text-title">Adicionar Cargo</h4>
+                    <div class="form-group row">
+                      <div class="col-md-1"></div>
+                      <label class="col-md-3 control-label">Cargo: </label>
+                      <div class="col-md-5">                                            
+                          <input onchange="checkDirectionRole()" type="text" name="role" id="role" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-1"></div>
+                        <label class="col-md-3 control-label">Biênio: </label>
+                        <div class="col-md-5">                                            
+                            <input onchange="checkDirectionRole()" type="text" name="biennium" id="biennium" class="form-control">
+                        </div>
+                    </div>
+                  </div>
+                  
+                  
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-default btn-success" disabled="true" id="saveDirectionRoleBtn">Salvar</button>
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>

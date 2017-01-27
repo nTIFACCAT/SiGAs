@@ -16,6 +16,7 @@
  *= require jquery-ui.min.css
  *= require jquery.mCustomScrollbar.css
  *= require nv.d3.css
+ *= require auto-complete.css 
  *= require_tree .
  *= require_self
  */

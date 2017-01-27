@@ -1408,7 +1408,7 @@ a.list-group-item:focus {
   transition: opacity 200ms ease-in-out;
 }
 .friend img {
-  width: 100%;
+  width: 100px;
   height: 100px;
   border: 3px solid #F5F5F5;
   -moz-border-radius: 20%;

@@ -1,5 +1,6 @@
 class AssociatesController < ApplicationController
   before_action :set_associate, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery :except => [:create_direction_role, :create_associate_bond]
   #before_filter :access_verify, except: [:show, :edit, :update]
 
   # GET /associates
@@ -41,6 +42,13 @@ class AssociatesController < ApplicationController
   # PATCH/PUT /associates/1
   # PATCH/PUT /associates/1.json
   def update
+    if associate_params[:category] != 2
+      bond = AssociateBond.where(dependent_id: @associate.id)
+      if bond.any?
+        bond.first.destroy
+      end
+    end
+    
     respond_to do |format|
       if @associate.update(associate_params)
         format.html { redirect_to @associate, notice: 'Dados do sócio atualizados com sucesso.' }
@@ -68,6 +76,88 @@ class AssociatesController < ApplicationController
     respond_to do |format|
       if associate.save!
         format.html { redirect_to associate}
+        format.json { head :no_content }
+      end
+    end
+  end
+  
+  def create_direction_role
+    role = DirectionRole.new
+    associate = Associate.find(params[:associate_id])
+    role.associate = associate   
+    role.role = params[:role]
+    role.biennium = params[:biennium]
+    respond_to do |format|
+      if role.save!
+        format.html { redirect_to associate, notice: 'Cargo adicionado com sucesso.'}
+        format.json { head :no_content }
+      end
+    end
+  end
+  
+  def get_direction_role
+    associate = Associate.find(params[:associate_id])
+    roles = DirectionRole.where(:associate => associate)
+    respond_to do |format|
+      format.json { render json: roles }
+    end
+  end
+  
+  def remove_direction_role
+    associate = Associate.find(params[:associate_id])
+    role = DirectionRole.find(params[:id])
+    respond_to do |format|
+      if role.destroy!
+        format.html { redirect_to associate, notice: 'Cargo removido com sucesso.'}
+        format.json { head :no_content }
+      end
+    end
+  end
+  
+  def get_dependents
+    associates = Associate.where(category_id: 2).select(:id, :name, :registration)
+    associateslist = []
+    associates.each do |associate|
+      associateslist << associate unless AssociateBond.where(dependent_id: associate.id).any?
+    end
+    respond_to do |format|
+      format.json { render json: associateslist }
+    end
+  end
+  
+  def get_dependents_data
+    associate_id = params[:associate_id]
+    associateslist = []
+    dependents = AssociateBond.where(associate_id: associate_id)
+    dependents.each do |dependent|
+      associate = Associate.find(dependent.dependent_id)
+      associateslist << [associate.name.split(' ')[0], dependent.bond, associate.photo.url, associate_path(dependent.dependent_id), remove_dependent_path(associate.id, dependent.id)]     
+    end
+    respond_to do |format|
+      format.json { render json: associateslist }
+    end
+  end
+  
+  def remove_dependent
+    associate = Associate.find(params[:associate_id])
+    dependent = AssociateBond.find(params[:id])
+    respond_to do |format|
+      if dependent.destroy!
+        format.html { redirect_to associate, notice: 'Dependente removido com sucesso.'}
+        format.json { head :no_content }
+      end
+    end
+  end
+  
+  def create_associate_bond
+    associate = Associate.find(params[:associate_id])
+    bond = AssociateBond.new
+    bond.bond = params[:bond]
+    bond.associate_id = associate.id   
+    bond.dependent_id = Associate.where(registration: params[:name].split(' - ')[0]).first.id
+    respond_to do |format|
+      if bond.save!
+        format.html { redirect_to associate, notice: 'Dependente adicionado com sucesso.'}
         format.json { head :no_content }
       end
     end

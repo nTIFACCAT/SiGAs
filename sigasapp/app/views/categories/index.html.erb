@@ -41,6 +41,7 @@
                           <th>Descrição</th>
                           <th>Valor à Vista</th>
                           <th>Valor Parcelado</th>
+                          <th>Dependentes</th>
                           <th colspan="2"></th>
                         </tr>
                       </thead>
@@ -51,11 +52,14 @@
                             <td><%= category.description %></td>
                             <td>R$ <%= category.value_in_cash %></td>
                             <td>R$ <%= category.value_in_installments %></td>
+                            <td> <%= category.allow_dependents %> </td>
                             <td>
                               <%= link_to edit_category_path(category) do %>
                                 <button class="btn btn-default"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar </button>
                               <%end%>
-                              <button onclick="notyConfirm('<%= remove_category_path(category.id) %>');" class="btn btn-danger"> <i class="fa fa-times" aria-hidden="true"></i> Remover </button>
+                              <% if (category.id != 1) && (category.id != 2) %>
+                                <button onclick="notyConfirm('<%= remove_category_path(category.id) %>');" class="btn btn-danger"> <i class="fa fa-times" aria-hidden="true"></i> Remover </button>
+                              <%end%>
                             </td>
                           </tr>
                         <% end %>

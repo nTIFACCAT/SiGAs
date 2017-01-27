@@ -134,4 +134,114 @@ function notyConfirm(url){
                 }
             ]
     })                                                    
-}               
+}
+/* ASSOCIATES VIEW */
+  function checkDirectionRole(){
+    if ($("#role").val() == "" || $("#biennium").val() == "") {
+      $("#saveDirectionRoleBtn").attr("disabled", true);
+    } else {
+      $("#saveDirectionRoleBtn").attr("disabled", false);
+    }
+  }
+  
+  function checkDependentForm(){
+    if ($("#name").val() == "" || $("#bond").val() == "") {
+      $("#saveDependentFormBtn").attr("disabled", true);
+    } else {
+      $("#saveDependentFormBtn").attr("disabled", false);
+    }
+  }      
+
+  function loadSocialTab(id){
+    $.ajax({
+      url: "/direction-roles/" + id,
+      success: function(response){
+        directionFunctions = "";
+        for (role in response) {
+          if (role == 4) {
+            directionFunctions += '...';
+            break;
+          } else {
+            if (role > 0) directionFunctions += ', ';
+            
+          }
+          directionFunctions += response[role].role + " (" + response[role].biennium + ")" ;
+        }
+        $("#direction_roles").text(directionFunctions);
+      },
+    });
+    
+    /* Buscar a lista de nomes dos sócios dependentes */
+    $.ajax({
+      url: "/associate-dependents/",
+      success: function(response){
+        var availableDependents = [];
+        for (associate in response) {
+          tmp = response[associate].registration + ' - ' + response[associate].name;
+          availableDependents.push(tmp);
+        }
+        var dependens = new autoComplete({
+          selector: '#name',
+          minChars: 3,
+          source: function(term, suggest){
+              term = term.toLowerCase();
+              var choices = availableDependents;
+              var suggestions = [];
+              for (i=0;i<choices.length;i++)
+                  if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+              suggest(suggestions);
+          }
+        });
+      },
+    });
+    
+    /* Buscar Dependents */
+    $.ajax({
+      url: "/associate-dependents/" + id,
+      success: function(response){
+        var dependentsHtml = "";
+        for (dependent in response) {
+          dependent = response[dependent];//....
+          dependentsHtml += '<div class="col-md-2 col-xs-2">' +
+                            ' <div class="friend">' +
+                            '   <img src="' + dependent[2] + '" >' +
+                            '   <span> ' + dependent[0] + ' (' + dependent[1] + ') </span>' +
+                            '   <a href="' + dependent[3] + '"><button class="btn btn-default btn-sm"> Ver </button></a>' +
+                            '   <button onclick="notyConfirm(\'' + dependent[4] + '\');" class="btn btn-danger btn-sm"> Remover </button>' +
+                            ' </div>' +                                            
+                            '</div>';
+        }
+        $("#dependents_cards").html(dependentsHtml);
+      },
+    });
+    
+  }
+  
+  function manageDirectionRole(id){
+    $.ajax({
+      url: "/direction-roles/" + id,
+      success: function(response){
+        directionFunctions = "";
+        for (role in response) {
+          directionFunctions += '<button onclick="notyConfirm(\'/remove-direction-role/' + id + '/' + response[role].id + '\');" class="btn btn-link"> x </button>';
+          directionFunctions += response[role].role + " (" + response[role].biennium + ")  <br />" ;
+        }
+        $("#direction_roles_list").html(directionFunctions);
+      },
+    });
+  }
+  
+  function addDepentent(id){
+    $.ajax({
+      url: "/direction-roles/" + id,
+      success: function(response){
+        directionFunctions = "";
+        for (role in response) {
+          directionFunctions += '<button onclick="notyConfirm(\'/remove-direction-role/' + id + '/' + response[role].id + '\');" class="btn btn-link"> x </button>';
+          directionFunctions += response[role].role + " (" + response[role].biennium + ")  <br />" ;
+        }
+        $("#direction_roles_list").html(directionFunctions);
+      },
+    });
+  }
+/* ASSOCIATES VIEW END */       

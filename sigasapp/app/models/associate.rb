@@ -1,6 +1,7 @@
 class Associate < ApplicationRecord
   has_attached_file :photo, :default_url => '/assets/default-user-avatar.png'
   belongs_to :category
+  has_many :direction_roles
   
   before_validation :generate_associate_registration
   
@@ -22,6 +23,17 @@ class Associate < ApplicationRecord
   
   def category=(arg)
     write_attribute(:category_id, arg)
+  end
+  
+  def gender_description
+    self.gender
+    if self.gender == "M"
+      "Masculino"
+    elsif self.gender == "F"
+      "Feminino"
+    else
+      "Outro"
+    end
   end
   
   private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170114150110) do
+ActiveRecord::Schema.define(version: 20170126222612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 20170114150110) do
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "associate_bonds", force: :cascade do |t|
+    t.integer  "associate_id", null: false
+    t.string   "bond",         null: false
+    t.integer  "dependent_id", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["associate_id"], name: "index_associate_bonds_on_associate_id", using: :btree
+    t.index ["dependent_id"], name: "index_associate_bonds_on_dependent_id", using: :btree
   end
 
   create_table "associates", force: :cascade do |t|
@@ -51,6 +61,7 @@ ActiveRecord::Schema.define(version: 20170114150110) do
     t.string   "description",           null: false
     t.float    "value_in_cash",         null: false
     t.float    "value_in_installments", null: false
+    t.boolean  "allow_dependents",      null: false
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
@@ -58,6 +69,15 @@ ActiveRecord::Schema.define(version: 20170114150110) do
   create_table "dashboards", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "direction_roles", force: :cascade do |t|
+    t.integer  "associate_id", null: false
+    t.string   "role",         null: false
+    t.string   "biennium",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["associate_id"], name: "index_direction_roles_on_associate_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
