@@ -217,6 +217,32 @@ function notyConfirm(url){
     
   }
   
+  function loadFinancialTab(id){
+    year = $("#date_year").val();
+    $.ajax({
+      url: "/associate-charges/" + id + '/' + year,
+      success: function(response){
+        var chargesHtml = "";
+        for (charge in response) {
+          charges = response[charge];//....
+          chargesHtml += '<tr>' +
+                         ' <td>' + charges[0] + '</td>' +
+                         ' <td>' + charges[1] + '</td>' +
+                         ' <td>' + charges[2] + '</td>' +
+                         ' <td>' + charges[3] + '</td>' +
+                         ' <td>' +
+                         '  <a href="' + charges[4] + '"><button class="btn btn-default btn-sm"> Ver </button></a>' +
+                         '  <button onclick="notyConfirm(\'' + charges[5] + '\');" class="btn btn-danger btn-sm"> Remover </button>' +
+                         ' </td>' +
+                         '</tr>';
+        }
+        $("#associate_charges_list").html(chargesHtml);
+      },
+    });
+  }
+  
+  
+  
   function manageDirectionRole(id){
     $.ajax({
       url: "/direction-roles/" + id,

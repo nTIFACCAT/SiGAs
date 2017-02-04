@@ -58,7 +58,7 @@
                     <li class="active"><a href="#tabPersonal" data-toggle="tab">Dados Pessoais</a></li>
                     <li><a href="#tabContact" data-toggle="tab">Contato</a></li>
                     <li><a href="#tabAssociate" data-toggle="tab" onclick="loadSocialTab(<%= @associate.id %>)">Social</a></li>
-                    <li><a href="#tabFinancial" data-toggle="tab">Financeiro</a></li>
+                    <li><a href="#tabFinancial" data-toggle="tab" onclick="loadFinancialTab(<%= @associate.id %>)">Financeiro</a></li>
                 </ul>
                 <div class="panel-body tab-content">
                     <div class="tab-pane active" id="tabPersonal">
@@ -106,7 +106,8 @@
                                   (<%= link_to Associate.find(bond.first.associate_id).name, associate_path(bond.first.associate_id) %>)
                               <% end %>
                             <% end %><br />
-                          <strong>Data de Admissão: </strong> <%= @associate.adminission_date.strftime('%d/%m/%Y') %> </div>
+                            <strong>Data de Admissão: </strong> <%= @associate.adminission_date.strftime('%d/%m/%Y') %> 
+                          </div>
                           <div class="col-md-5"> 
                             <strong>Cargos: </strong>
                             <span id="direction_roles"> </span>
@@ -117,29 +118,28 @@
                             <% end %>
                             <button class="btn btn-default" onclick="manageDirectionRole(<%= @associate.id %>)" data-toggle="modal" data-target="#add_direction_role_modal"> Gerenciar Cargos </button> 
                           </div>
-                        </div>
-                        
-                        <% if @associate.category.allow_dependents? %>
-                        <div class="row">
-                          <div class="panel-body">
-                            <h4 class="text-title">Dependentes</h4>
-                            <div class="row" id="dependents_cards">
+                          
+                          <% if @associate.category.allow_dependents? %>
+                          <div class="row">
+                            <div class="panel-body">
+                              <h4 class="text-title">Dependentes</h4>
+                              <div class="row" id="dependents_cards"></div>
                             </div>
                           </div>
+                          <% end %>
                         </div>
-                        <% end %>
+                        
+                        
                     </div>
                     
                     <div class="tab-pane" id="tabFinancial">
                         <div class="row">
                           <div class="col-md-1">
-                            <select>
-                              <option> 2017 </option>
-                            </select>
+                            <%= select_year(Date.today, {:start_year => Date.today.year + 1, :end_year => 2000}, {:onChange => "loadFinancialTab(#{@associate.id})"}) %>
                           </div>
                           
                           <div class="col-md-6">
-                            <button class="btn btn-default" data-toggle="modal" data-target="#add_dependent_modal"> Nova cobrança </button>
+                            <button class="btn btn-default" data-toggle="modal" data-target="#add_charge_modal"> Nova cobrança </button>
                             <button class="btn btn-primary"> Gerar anuidade  </button>
                             
                             <!-- TODO Listar as Cobranças do Ano | Botão de "Registrar Pagamento" | Botão Cancelar | Select Ano atualiza a listagem -->
@@ -150,8 +150,22 @@
                         <% if @associate.category.allow_dependents? %>
                         <div class="row">
                           <div class="panel-body">
-                            <h4 class="text-title">Dependentes</h4>
-                            <div class="row" id="dependents_cards">
+                            <h4 class="text-title">Cobranças</h4>
+                            <div class="row">
+                              <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Descrição</th>
+                                        <th>Valor</th>
+                                        <th>Vencimento</th>
+                                        <th>Situação</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="associate_charges_list">
+
+                                </tbody>
+                              </table>
                             </div>
                           </div>
                         </div>
@@ -239,6 +253,46 @@
               <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   <button type="submit" class="btn btn-default btn-success" disabled="true" id="saveDirectionRoleBtn">Salvar</button>
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>
+  
+  <div class="modal" id="add_charge_modal" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">                    
+              <div class="modal-body">
+                  <div class="panel-body">
+                    <form action="<%= create_associate_charge_path(@associate) %>" method="post">
+                    <h4 class="text-title">Adicionar Nova Cobrança</h4>
+                    <div class="form-group row">
+                      <div class="col-md-1"></div>
+                      <label class="col-md-3 control-label">Descrição: </label>
+                      <div class="col-md-5">                                            
+                          <input required="required" type="text" name="description" id="description" class="form-control">
+                          <input required="required" type="hidden" name="associate_id" id="associate_id" class="form-control" value="<%= @associate.id %>">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-md-1"></div>
+                      <label class="col-md-3 control-label">Valor: </label>
+                      <div class="col-md-5">                                            
+                          <input required="required" type="text" name="value" id="value" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-md-1"></div>
+                      <label class="col-md-3 control-label">Vencimento: </label>
+                      <div class="col-md-5">                                            
+                          <input required="required" type="text" name="due_date" id="due_date" class="form-control datepicker">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-default btn-success">Salvar</button>
               </div>
             </form>
           </div>
