@@ -231,9 +231,12 @@ function notyConfirm(url){
                          ' <td>' + charges[2] + '</td>' +
                          ' <td>' + charges[3] + '</td>' +
                          ' <td>' +
-                         '  <a href="' + charges[4] + '"><button class="btn btn-default btn-sm"> Ver </button></a>' +
-                         '  <button onclick="notyConfirm(\'' + charges[5] + '\');" class="btn btn-danger btn-sm"> Remover </button>' +
-                         ' </td>' +
+                         '  <a href="' + charges[4] + '"><button class="btn btn-default btn-sm"> Ver </button></a>';
+          if (charges[3] != "Paga") {
+          	chargesHtml += '  <button onclick="notyConfirm(\'' + charges[5] + '\');" class="btn btn-danger btn-sm"> Remover </button>';
+          } 
+                         
+          chargesHtml += ' </td>' +
                          '</tr>';
         }
         $("#associate_charges_list").html(chargesHtml);

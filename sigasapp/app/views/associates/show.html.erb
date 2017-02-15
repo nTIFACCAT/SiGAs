@@ -140,14 +140,14 @@
                           
                           <div class="col-md-6">
                             <button class="btn btn-default" data-toggle="modal" data-target="#add_charge_modal"> Nova cobrança </button>
-                            <button class="btn btn-primary"> Gerar anuidade  </button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#add_annuity_charge_modal"> Gerar anuidade  </button>
                             
                             <!-- TODO Listar as Cobranças do Ano | Botão de "Registrar Pagamento" | Botão Cancelar | Select Ano atualiza a listagem -->
                             
                           </div>
                         </div>
                         
-                        <% if @associate.category.allow_dependents? %>
+                        
                         <div class="row">
                           <div class="panel-body">
                             <h4 class="text-title">Cobranças</h4>
@@ -169,7 +169,7 @@
                             </div>
                           </div>
                         </div>
-                        <% end %>
+                        
                     </div>                                                
                 </div>
             </div>                                         
@@ -258,6 +258,52 @@
           </div>
       </div>
   </div>
+  
+  <div class="modal" id="add_annuity_charge_modal" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">                    
+              <div class="modal-body">
+                  <div class="panel-body">
+                    <form action="<%= create_associate_annuity_charge_path(@associate) %>" method="post">
+                    <h4 class="text-title">Gerar Cobrança de Anuidade</h4>
+                    <div class="form-group row">
+                      <div class="col-md-1"></div>
+                      <label class="col-md-3 control-label">Forma de pagamento: </label>
+                      <div class="col-md-5">                                            
+                          <select required="required" name="annuity_form" id="annuity_form" class="form-control" >
+                          	<option value="1">à vista </option>
+                          	<option value="2">Parcelado 2 vezes </option>
+                          	<option value="3">Parcelado 3 vezes </option>
+                          	<option value="4">Parcelado 4 vezes </option>
+                          	<option value="5">Parcelado 5 vezes </option>
+                          	<option value="6">Parcelado 6 vezes </option>
+                          	<option value="7">Parcelado 7 vezes </option>
+                          	<option value="8">Parcelado 8 vezes </option>
+                          	<option value="9">Parcelado 9 vezes </option>
+                          	<option value="10">Parcelado 10 vezes </option>
+                          	<option value="11">Parcelado 11 vezes </option>
+                          	<option value="12">Parcelado 12 vezes </option>
+                          </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-md-1"></div>
+                      <label class="col-md-3 control-label">Dia do Vencimento: </label>
+                      <div class="col-md-5">                                            
+                          <input required="required" type="number" name="dueday" id="dueday" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-default btn-success">Salvar</button>
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>
+  
   
   <div class="modal" id="add_charge_modal" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
       <div class="modal-dialog">

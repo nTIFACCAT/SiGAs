@@ -21,6 +21,34 @@ class AssociateChargesController < ApplicationController
     end
   end
   
+  def create_annuity
+    @associate = Associate.find(params[:associate_id]) 
+    annuity_form = params[:annuity_form].to_i
+    if annuity_form <= 1 
+      associate_charge = AssociateCharge.new
+      associate_charge.description = "Anuidade Sócio"  
+      associate_charge.value = @associate.category.value_in_cash
+      associate_charge.due_date = Date.current.change(day: params[:dueday].to_i) 
+      associate_charge.associate_id = params[:associate_id]
+      associate_charge.save
+    else
+      for i in 1..annuity_form
+        associate_charge = AssociateCharge.new
+        associate_charge.description = "Anuidade Sócio #{i}/#{annuity_form}"  
+        associate_charge.value = @associate.category.value_in_installments / annuity_form
+        month = (Date.current.month + i) > 12 ? (Date.current.month + i) - 12 : (Date.current.month + i) 
+        associate_charge.due_date = Date.current.change(day: params[:dueday].to_i, month: month) 
+        associate_charge.associate_id = params[:associate_id]
+        associate_charge.save
+      end
+    end
+     
+    respond_to do |format|
+      format.html { redirect_to @associate, notice: 'Cobrança de anuidade adicionada. ' }
+      format.json { render :show, status: :created, location: @associate }
+    end
+  end
+  
   def update
     charge = AssociateCharge.find(params[:id])
     respond_to do |format|

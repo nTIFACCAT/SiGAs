@@ -40,7 +40,9 @@ class Associate < ApplicationRecord
   private
     def generate_associate_registration
       if self.new_record?
-        self.registration = 111
+        year = Date.today.year.to_s[2..-1]
+        id = (Associate.last.id + 1).to_s.rjust(6, '0')
+        self.registration = year + id.to_s
       end
     end
   

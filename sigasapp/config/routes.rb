@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'remove-dependent/:associate_id/:id' => 'associates#remove_dependent', as: :remove_dependent
   post 'associate-bond/:associate_id' => 'associates#create_associate_bond', as: :create_associate_bond
   post 'associate-charge/:associate_id' => 'associate_charges#create', as: :create_associate_charge
+  post 'associate-annuity-charge/:associate_id' => 'associate_charges#create_annuity', as: :create_associate_annuity_charge
   get 'associate-charges/:associate_id/:year' => 'associate_charges#get_charges', as: :get_associate_charge
   get 'charges/:id' => 'associate_charges#show', as: :charge
   get 'remove-associate-charge/:associate_id/:id' => 'associate_charges#remove_charge', as: :remove_charge

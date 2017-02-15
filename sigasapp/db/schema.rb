@@ -31,17 +31,18 @@ ActiveRecord::Schema.define(version: 20170127161544) do
   end
 
   create_table "associate_charges", force: :cascade do |t|
-    t.string   "description",  null: false
-    t.integer  "associate_id", null: false
-    t.float    "value",        null: false
-    t.date     "due_date",     null: false
+    t.string   "description",                 null: false
+    t.integer  "associate_id",                null: false
+    t.float    "value",                       null: false
+    t.date     "due_date",                    null: false
     t.date     "pay_date"
     t.float    "additions"
     t.float    "discounts"
     t.string   "payment_form"
     t.string   "obs"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.boolean  "active",       default: true, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["associate_id"], name: "index_associate_charges_on_associate_id", using: :btree
   end
 

@@ -14,8 +14,8 @@ development:
   encoding: unicode
   database: sigas_development
   pool: 5
-  username: postgres
-  password: postgres
+  username: vagrant
+  password: 
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,13 +25,13 @@ test:
   encoding: unicode
   database: sigas_test
   pool: 5
-  username: postgres
-  password: postgres
+  username: vagrant
+  password: 
 
 production:
   <<: *default
   encoding: unicode
   database: sigas_production
   pool: 5
-  username: postgres
-  password: postgres
+  username: vagrant
+  password: 
